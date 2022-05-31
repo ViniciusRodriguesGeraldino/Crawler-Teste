@@ -63,7 +63,7 @@ class IndexController extends AbstractController
         $this->playersOnlineRepository = $playersOnlineRepository;
         $this->playersOnlineHorasRepository = $playersOnlineHorasRepository;
 	}    
-
+ 
     /**
      * @Route("/ec02c59dee6faaca3189bace969c22d3/online", name="ec02c59dee6faaca3189bace969c22d3_online")
      */

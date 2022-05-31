@@ -48,6 +48,53 @@ class CrawlerService {
         $this->playersTop10Repository = $playersTop10Repository;
     }
 
+    public function onlineCrawler(){
+        
+        $html = $this->getHtml('https://dura-online.com/?online');
+        
+        $players = [];
+
+        $crawler = new Crawler($html);
+
+        $qtdOnline = $crawler->filterXPath('//*[@id="online"]/div[5]/div/div/table[2]/tr')->count();
+        for($i = 2; $i<=$qtdOnline; $i++) {
+            $nome = $crawler->filterXPath('//*[@id="online"]/div[5]/div/div/table[2]/tr['.$i.']/td[1]')->text();
+            $level = $crawler->filterXPath('//*[@id="online"]/div[5]/div/div/table[2]/tr['.$i.']/td[2]')->text();
+            $vocacao = $crawler->filterXPath('//*[@id="online"]/div[5]/div/div/table[2]/tr['.$i.']/td[3]')->text();
+            $link = $crawler->filterXPath('//*[@id="online"]/div[5]/div/div/table[2]/tr['.$i.']/td[1]/span/b/a/@href')->text();
+
+            $players[] = ['nome' => $nome, 'level' => $level, 'vocacao' => $vocacao, 'link' => $link];
+        }
+
+
+    }
+
+    public function salvaPlayers($players) { 
+		
+        for ($i = 0; $i < count($players); $i++) {
+            
+            $nome = $players[$i]["nome"];
+
+            $player = $this->playersRepository->findOneBy(['nome' => $nome]);
+            if(!$player){
+                $player = new Players();
+                $player->setNome($nome);
+            }
+            
+            $player->setLevel($players[$i]["level"]);
+            $player->setVocacao($players[$i]["vocacao"]);
+            $player->setLink($players[$i]["link"]);
+            $player->setDataConsulta(new \DateTime());
+
+            $this->entityManager->persist($player);
+            $this->entityManager->flush();
+
+        }
+
+        $this->salvaPlayers($players);
+        
+    }      
+
     public function atualizaPlayer(Players $player, $url) {
 
         //$url = 'https://dura-online.com/?characters/Orion+Luca';

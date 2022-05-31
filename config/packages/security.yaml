@@ -13,6 +13,12 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: symfony!@@###
+                        roles: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]                
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -20,6 +26,14 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            
+            form_login:
+                # "login" is the name of the route created previously
+                login_path: login
+                check_path: login
+                enable_csrf: false
+            logout:
+                path: app_logout                
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -30,9 +44,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/(app/login|app/register|app/registro|app/confirm|app/send|app/new|app/seta|admin/restrito|api), role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(login|account|register|app/send|app/new|app/seta|admin/restrito|api|items|quests|legendary), role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, role: ROLE_ADMIN }
-        - { path: ^/app, role: ROLE_USER }
+        - { path: ^/account, role: ROLE_USER }
 
 when@test:
     security:

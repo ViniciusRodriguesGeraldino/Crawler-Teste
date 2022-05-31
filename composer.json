@@ -10,13 +10,16 @@
         "doctrine/doctrine-bundle": "^2.6",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
+        "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
         "symfony/css-selector": "5.4.*",
         "symfony/discord-notifier": "5.4.*",
         "symfony/dom-crawler": "5.4.*",
         "symfony/dotenv": "5.4.*",
         "symfony/flex": "^1.17|^2",
+        "symfony/form": "5.4.*",
         "symfony/framework-bundle": "5.4.*",
+        "symfony/mailer": "5.4.*",
         "symfony/maker-bundle": "^1.38",
         "symfony/notifier": "5.4.*",
         "symfony/property-access": "5.4.*",
@@ -24,7 +27,11 @@
         "symfony/runtime": "5.4.*",
         "symfony/security-bundle": "5.4.*",
         "symfony/serializer": "5.4.*",
+        "symfony/templating": "5.4.*",
+        "symfony/twig-bundle": "5.4.*",
+        "symfony/validator": "5.4.*",
         "symfony/yaml": "5.4.*",
+        "symfonycasts/verify-email-bundle": "^1.10",
         "team-reflex/discord-php": "^7.0"
     },
     "config": {
@@ -74,5 +81,9 @@
             "allow-contrib": false,
             "require": "5.4.*"
         }
+    },
+    "require-dev": {
+        "symfony/stopwatch": "5.4.*",
+        "symfony/web-profiler-bundle": "5.4.*"
     }
 }
