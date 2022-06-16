@@ -53,10 +53,48 @@ class CrawlerController extends AbstractController
     /**
      * @Route("/", name="home")
      */
+    public function home(): Response
+    {
+        return $this->render('home/index.html.twig', [
+            'error'         => '',
+        ]);
+
+    }  
+
+    /**
+     * @Route("/items", name="items_seller")
+     */
+    public function itemsSell(): Response
+    {
+        return $this->render('home/items.html.twig', [
+            'error'         => '',
+        ]);
+
+    }  
+    
+    /**
+     * @Route("/quests", name="quests")
+     */
+    public function quests(): Response
+    {
+        return $this->render('home/index.html.twig', [
+            'error'         => '',
+        ]);
+
+    }  
+    
+    /**
+     * @Route("/legendary", name="legendary")
+     */
     public function worksOnline(): Response
     {
-        return new JsonResponse('works!');
-    }  
+        return $this->render('home/index.html.twig', [
+            'error'         => '',
+        ]);
+
+    }      
+
+
     
     /**
      * @Route("/89ffb49f6c28afaac0c29af9c9d208ac/crawler", name="89ffb49f6c28afaac0c29af9c9d208ac_crawler")
@@ -70,10 +108,7 @@ class CrawlerController extends AbstractController
         $players = [];
 
         $crawler = new Crawler($html);
-                                                                                      //linha,Coluna
-        //$attributes = $crawler->filterXPath('//*[@id="online"]/div[5]/div/div/table[2]/tr[3]/td[1]/span/b/a/@href')->text();
-        //dd($attributes);
-                                               //*[@id="online"]/div[5]/div/div/table[2]/tr[3]/td[1]/span/b/a
+
         $qtdOnline = $crawler->filterXPath('//*[@id="online"]/div[5]/div/div/table[2]/tr')->count();
         for($i = 2; $i<=$qtdOnline; $i++) {
             $nome = $crawler->filterXPath('//*[@id="online"]/div[5]/div/div/table[2]/tr['.$i.']/td[1]')->text();

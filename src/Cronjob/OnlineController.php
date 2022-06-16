@@ -76,10 +76,12 @@ class OnlineController extends Command {
 
         dump('Crawling tabela online...');
         $html = $this->crawlerService->getHtml('https://dura-online.com/?online');
-        
+	dump($html);        
         $crawler = new Crawler($html);
                                                
         $qtdOnline = $crawler->filterXPath('//*[@id="online"]/div[5]/div/div/table[2]/tr')->count();
+
+	dump($qtdOnline);
 
         for($i = 2; $i<=$qtdOnline; $i++) {
 
